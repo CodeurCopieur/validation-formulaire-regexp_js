@@ -10,6 +10,14 @@ form.password.addEventListener('change', function() {
   validPassword(this);
 })
 
+//ecouter la soumission du formulaire
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+  if(validEmail(form.email) && validPassword(form.password)) {
+   this.submit();
+  }
+})
+
 /************* Validation email ************/
 const validEmail = function(email){
   //Création de la regexp pour la validation email
@@ -23,10 +31,12 @@ const validEmail = function(email){
     small.textContent = 'Adresse valide';
     small.classList.remove('text-danger');
     small.classList.add('text-success');
+    return true;
   } else {
     small.textContent = 'Adresse n\'est pas valide';
     small.classList.remove('text-sucess');
     small.classList.add('text-danger');
+    return false;
   }
 }
 
@@ -67,9 +77,11 @@ const validPassword = function(password){
     small.textContent = 'Le mot de passe est valide';
     small.classList.remove('text-danger');
     small.classList.add('text-success');
+    return true;
   } else {
     small.textContent = msg;
     small.classList.remove('text-sucess');
     small.classList.add('text-danger');
+    return false
   }
 }
